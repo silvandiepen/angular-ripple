@@ -58,7 +58,7 @@
 
                 x = origEvent.pageX;
                 y = origEvent.pageY;
-              } catch (e) {
+              } catch(ev){
                 // fall back to center of el
                 x = ripple.offsetWidth / 2;
                 y = ripple.offsetHeight / 2;
@@ -80,13 +80,13 @@
 
             // Add animation effect
             ripple.className += ' animate';
-          }
+          };
 
         element.on('touchend mouseup', func);
 
         //remove the event listener on scope destroy
         scope.$on('$destroy',function() {
-          element.off('touchend mouseup', func);
+          element.off('hover', func);
         });
       }
     };
