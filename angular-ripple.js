@@ -3,11 +3,11 @@
  * Copyright (c) 2014 Nelson Cash - http://github.com/nelsoncash/angular-ripple
  * http://codepen.io/MikeMcChillin/pen/XJrLwg
  * License: MIT
+ * editted to for hover events by Sil van Diepen
  */
 
 (function(window, angular, undefined) {
   'use strict';
-
   if(!angular) {
     return;
   }
@@ -43,50 +43,21 @@
             ripple.className = ripple.className.replace(/ ?(animate)/g, '');
 
             // get click coordinates by event type
-            if (eventType === 'mouseup') {
-              x = e.pageX;
-              y = e.pageY;
-            } else if (eventType === 'touchend') {
-              try {
-                var origEvent;
+            x = e.offsetX;
+            y = e.offsetY;
 
-                if (typeof e.changedTouches !== 'undefined') {
-                  origEvent = e.changedTouches[0];
-                } else {
-                  origEvent = e.originalEvent;
-                }
-
-                x = origEvent.pageX;
-                y = origEvent.pageY;
-              } catch(ev){
-                // fall back to center of el
-                x = ripple.offsetWidth / 2;
-                y = ripple.offsetHeight / 2;
-              }
-            }
-
-            // set new ripple position by click or touch position
-            function getPos(element) {
-              var de = document.documentElement;
-              var box = element.getBoundingClientRect();
-              var top = box.top + window.pageYOffset - de.clientTop;
-              var left = box.left + window.pageXOffset - de.clientLeft;
-              return { top: top, left: left };
-            }
-
-            offsets = getPos(element[0]);
-            ripple.style.left = (x - offsets.left - size / 2) + 'px';
-            ripple.style.top = (y - offsets.top - size / 2) + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
 
             // Add animation effect
             ripple.className += ' animate';
           };
 
-        element.on('touchend mouseup', func);
+        element.on('mouseover', func);
 
         //remove the event listener on scope destroy
         scope.$on('$destroy',function() {
-          element.off('hover', func);
+          element.off('mouseover', func);
         });
       }
     };
