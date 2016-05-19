@@ -18,9 +18,7 @@
     return {
       restrict: 'A',
       link: function (scope, element, attrs) {
-        console.log(attrs.angularRipple);
         if(attrs.angularRipple === 'true'){
-          console.log('do initialize');
           var x, y, size, offsets,
             func = function(e){
               var ripple = this.querySelector('.angular-ripple');
@@ -63,7 +61,7 @@
             element.off('mouseover', func);
           });
         } else {
-          console.log('dont initialize');
+          return;
         }
       }
     };
