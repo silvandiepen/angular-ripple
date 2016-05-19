@@ -18,6 +18,7 @@
     return {
       restrict: 'A',
       link: function (scope, element, attrs) {
+        console.log(attrs);
         var x, y, size, offsets,
           func = function(e){
             var ripple = this.querySelector('.angular-ripple');
