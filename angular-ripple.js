@@ -19,7 +19,7 @@
       restrict: 'A',
       link: function (scope, element, attrs) {
         console.log(attrs.angularRipple);
-        if(attrs.angularRipple === true){
+        if(attrs.angularRipple === 'true'){
           console.log('do initialize');
           var x, y, size, offsets,
             func = function(e){
