@@ -19,47 +19,49 @@
       restrict: 'A',
       link: function (scope, element, attrs) {
         console.log(attrs.angularRipple);
-        var x, y, size, offsets,
-          func = function(e){
-            var ripple = this.querySelector('.angular-ripple');
-            var eventType = e.type;
-            // Ripple
-            if (ripple === null) {
-              // Create ripple
-              ripple = document.createElement('span');
-              ripple.className += ' angular-ripple';
+        if(attrs.angularRipple  === true){
+          var x, y, size, offsets,
+            func = function(e){
+              var ripple = this.querySelector('.angular-ripple');
+              var eventType = e.type;
+              // Ripple
+              if (ripple === null) {
+                // Create ripple
+                ripple = document.createElement('span');
+                ripple.className += ' angular-ripple';
 
-              // Prepend ripple to element
-              this.insertBefore(ripple, this.firstChild);
+                // Prepend ripple to element
+                this.insertBefore(ripple, this.firstChild);
 
-              // Set ripple size
-              if (!ripple.offsetHeight && !ripple.offsetWidth) {
-                size = Math.max(element[0].offsetWidth, element[0].offsetHeight);
-                ripple.style.width = size + 'px';
-                ripple.style.height = size + 'px';
+                // Set ripple size
+                if (!ripple.offsetHeight && !ripple.offsetWidth) {
+                  size = Math.max(element[0].offsetWidth, element[0].offsetHeight);
+                  ripple.style.width = size + 'px';
+                  ripple.style.height = size + 'px';
+                }
               }
-            }
 
-            // Remove animation effect
-            ripple.className = ripple.className.replace(/ ?(animate)/g, '');
+              // Remove animation effect
+              ripple.className = ripple.className.replace(/ ?(animate)/g, '');
 
-            // get click coordinates by event type
-            x = e.offsetX;
-            y = e.offsetY;
+              // get click coordinates by event type
+              x = e.offsetX;
+              y = e.offsetY;
 
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
+              ripple.style.left = x + 'px';
+              ripple.style.top = y + 'px';
 
-            // Add animation effect
-            ripple.className += ' animate';
-          };
+              // Add animation effect
+              ripple.className += ' animate';
+            };
 
-        element.on('mouseover', func);
+          element.on('mouseover', func);
 
-        //remove the event listener on scope destroy
-        scope.$on('$destroy',function() {
-          element.off('mouseover', func);
-        });
+          //remove the event listener on scope destroy
+          scope.$on('$destroy',function() {
+            element.off('mouseover', func);
+          });
+        }
       }
     };
   });
